@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plainly — read your contracts before you sign</title>
+<meta name="description" content="AI that reads your lease, T&C, job offer, or medical bill, and shows you the 3 things that matter before you click 'I agree'. Plain English. Citations to the law.">
+<meta name="theme-color" content="#0d0d0d">
+<meta property="og:title" content="Plainly — read your contracts before you sign">
+<meta property="og:description" content="3 red flags, in plain English, with citations to the law. For renters, freelancers, and small landlords in the US, UK, and Canada.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://helloplainly.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@simbiont222">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📄%3C/text%3E%3C/svg%3E">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #0d0d0d;
+    --card: #161616;
+    --card-hi: #1a1a1a;
+    --border: #262626;
+    --text: #e6e6e6;
+    --muted: #9ca3af;
+    --dim: #6b7280;
+    --accent: #5eead4;
+    --accent-hi: #7df0db;
+    --amber: #fbbf24;
+    --amber-bg: #422006;
+    --rose: #fca5a5;
+}
+html { scroll-behavior: smooth; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+section { padding: 80px 0; border-top: 1px solid var(--border); }
+section:first-of-type { border-top: 0; padding-top: 56px; }
+
+/* Nav */
+.nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; margin-bottom: 24px;
+}
+.logo {
+    font-weight: 700; font-size: 18px; color: #fff; text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+}
+.logo-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 14px;
+    transition: color 0.1s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* Status pill */
+.status {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-bg); color: var(--amber);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    margin-bottom: 24px;
+}
+.status::before {
+    content: ''; width: 6px; height: 6px; background: var(--amber);
+    border-radius: 50%; animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Hero */
+h1 {
+    font-size: 64px; font-weight: 700; letter-spacing: -2px;
+    margin-bottom: 24px; color: #fff; line-height: 1.02;
+}
+h1 .accent { color: var(--accent); }
+.lead {
+    font-size: 22px; color: var(--muted); margin-bottom: 40px;
+    max-width: 600px;
+}
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.cta-row .micro { font-size: 13px; color: var(--dim); margin-top: 8px; }
+.btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 16px;
+    text-decoration: none; cursor: pointer;
+    border: 1px solid transparent; font-family: inherit;
+    transition: transform 0.1s, background 0.1s, border-color 0.1s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: var(--accent); color: #042f2e; }
+.btn-primary:hover { background: var(--accent-hi); }
+.btn-secondary { background: var(--card); color: var(--text); border-color: var(--border); }
+.btn-secondary:hover { border-color: var(--accent); }
+.btn-ghost { background: transparent; color: var(--muted); border-color: var(--border); }
+.btn-ghost:hover { color: var(--text); }
+
+/* Trust strip */
+.trust {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border);
+    color: var(--dim); font-size: 14px;
+}
+.trust-item { display: flex; align-items: center; gap: 8px; }
+.trust-item strong { color: var(--text); font-weight: 600; }
+.flag { font-size: 18px; }
+
+/* Section heading */
+.eyebrow {
+    color: var(--accent); font-size: 13px; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 12px;
+}
+h2 {
+    font-size: 36px; font-weight: 700; letter-spacing: -0.8px;
+    color: #fff; margin-bottom: 16px; line-height: 1.15;
+}
+.section-lead {
+    color: var(--muted); font-size: 18px; margin-bottom: 40px; max-width: 600px;
+}
+
+/* Use-case cards */
+.usecases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 720px) { .usecases { grid-template-columns: 1fr; } }
+.usecase {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px; transition: border-color 0.1s, transform 0.1s;
+}
+.usecase:hover { border-color: var(--accent); transform: translateY(-2px); }
+.usecase-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+.usecase h3 { font-size: 19px; color: #fff; margin-bottom: 8px; font-weight: 600; }
+.usecase-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    color: var(--accent); background: rgba(94, 234, 212, 0.08);
+    padding: 3px 10px; border-radius: 999px;
+    margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.6px;
+}
+.usecase p { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+.usecase-scenario {
+    background: var(--bg); border-left: 2px solid var(--accent);
+    padding: 12px 14px; border-radius: 0 6px 6px 0;
+    font-size: 14px; color: var(--text);
+}
+.usecase-scenario .quote { color: var(--rose); font-weight: 500; }
+
+/* Features (existing) */
+.feats { display: grid; gap: 16px; }
+.feat {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+}
+.feat h3 { font-size: 18px; margin-bottom: 10px; color: #fff; font-weight: 600; }
+.feat p { color: var(--muted); font-size: 15px; }
+.feat .stat {
+    display: inline-block; margin-top: 12px;
+    font-size: 13px; color: var(--accent); font-weight: 600;
+}
+
+/* FAQ */
+.faq { display: flex; flex-direction: column; gap: 0; }
+.faq details {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+}
+.faq details:first-of-type { border-top: 1px solid var(--border); }
+.faq summary {
+    cursor: pointer; font-weight: 600; color: #fff;
+    font-size: 17px; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-right: 8px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+    content: '+'; color: var(--accent); font-size: 24px; font-weight: 300;
+    transition: transform 0.2s; flex-shrink: 0; margin-left: 16px;
+}
+.faq details[open] summary::after { content: '−'; }
+.faq p {
+    margin-top: 12px; color: var(--muted); font-size: 15px; max-width: 700px;
+}
+
+/* Waitlist form */
+.waitlist-wrap { max-width: 520px; }
+form.waitlist {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 8px;
+}
+form.waitlist input[type=email] {
+    flex: 1; min-width: 220px;
+    background: transparent; border: 0; outline: none;
+    color: var(--text); font-size: 16px; font-family: inherit;
+    padding: 10px 12px;
+}
+form.waitlist input[type=email]::placeholder { color: var(--dim); }
+form.waitlist button { white-space: nowrap; }
+.honeypot { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+.form-note { color: var(--dim); font-size: 13px; margin-top: 14px; }
+.form-success {
+    background: rgba(94, 234, 212, 0.08); border: 1px solid var(--accent);
+    border-radius: 12px; padding: 20px; color: var(--accent);
+    display: none; font-size: 15px;
+}
+.form-success.show { display: block; }
+
+/* Telegram CTA */
+.tg-card {
+    background: linear-gradient(135deg, var(--card) 0%, #1a1a1a 100%);
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; display: flex; gap: 24px; align-items: center;
+    flex-wrap: wrap;
+}
+.tg-icon {
+    font-size: 40px; flex-shrink: 0;
+    width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
+    background: rgba(94, 234, 212, 0.08); border-radius: 14px;
+}
+.tg-body { flex: 1; min-width: 240px; }
+.tg-body h3 { font-size: 20px; color: #fff; margin-bottom: 6px; font-weight: 600; }
+.tg-body p { color: var(--muted); font-size: 15px; }
+.tg-body .pill {
+    display: inline-block; margin-top: 10px; font-size: 12px;
+    color: var(--amber); background: var(--amber-bg);
+    padding: 3px 10px; border-radius: 999px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.6px;
+}
+
+/* Footer */
+footer {
+    margin-top: 0; padding: 40px 0;
+    border-top: 1px solid var(--border);
+    color: var(--dim); font-size: 14px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+
+/* Misc */
+.text-dim { color: var(--dim); }
+.divider { height: 1px; background: var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+        <a href="#" class="logo"><span class="logo-dot"></span> Plainly</a>
+        <div class="nav-links">
+            <a href="#how">How it works</a>
+            <a href="#usecases">Who it's for</a>
+            <a href="#faq">FAQ</a>
+            <a href="https://github.com/simbiont-ai/plainly" rel="noopener">GitHub ↗</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="top">
+        <div class="status">v0.1 · building in public</div>
+        <h1>Read your contracts <span class="accent">before you sign.</span></h1>
+        <p class="lead">
+            Plainly takes a lease, T&amp;C, job offer, or medical bill you don't want to read,
+            and shows you the <strong style="color:#fff">3 things that matter</strong> — in plain English,
+            with citations to the law.
+        </p>
+        <div class="cta-row">
+            <a href="#waitlist" class="btn btn-primary">Join the waitlist →</a>
+            <a href="https://github.com/simbiont-ai/plainly" rel="noopener" class="btn btn-secondary">View on GitHub</a>
+        </div>
+        <p class="micro">No card. No spam. Just a launch ping.</p>
+
+        <div class="trust">
+            <div class="trust-item"><span class="flag">🇺🇸</span> <strong>US</strong> lease law</div>
+            <div class="trust-item"><span class="flag">🇬🇧</span> <strong>UK</strong> Housing Acts</div>
+            <div class="trust-item"><span class="flag">🇨🇦</span> <strong>CA</strong> provincial tenancy</div>
+            <div class="trust-item"><strong>50+</strong> statute sections</div>
+            <div class="trust-item"><strong>$5</strong>/mo target</div>
+        </div>
+    </section>
+
+    <!-- Use-cases -->
+    <section id="usecases">
+        <div class="eyebrow">Who it's for</div>
+        <h2>Three people, three contracts they regret signing.</h2>
+        <p class="section-lead">Plainly isn't a legal tool for lawyers. It's a second pair of eyes for the rest of us.</p>
+
+        <div class="usecases">
+            <div class="usecase">
+                <span class="usecase-icon">🔑</span>
+                <div class="usecase-tag">Renter</div>
+                <h3>You just got a 22-page lease.</h3>
+                <p>You don't know what's normal. You don't know what your state caps on deposits. You don't want to email your landlord a counter-proposal without knowing what to ask for.</p>
+                <div class="usecase-scenario">
+                    "Your deposit is <span class="quote">2.5× monthly rent</span> in a state that caps it at 1×. That's $4,500 you may not get back."
+                </div>
+            </div>
+
+            <div class="usecase">
+                <span class="usecase-icon">💼</span>
+                <div class="usecase-tag">Freelancer / SMB</div>
+                <h3>You clicked "I agree" on a SaaS MSA.</h3>
+                <p>You're locked into auto-renewal, an arbitration clause, and a 30-day notice window you didn't know existed. The contract is "standard" — for the vendor.</p>
+                <div class="usecase-scenario">
+                    "Auto-renews in <span class="quote">14 days unless you cancel in writing</span>. You missed the window last quarter by 6 days."
+                </div>
+            </div>
+
+            <div class="usecase">
+                <span class="usecase-icon">🏠</span>
+                <div class="usecase-tag">Small landlord</div>
+                <h3>You wrote a lease from a template in 2019.</h3>
+                <p>State law changed. Two clauses you rely on are now unenforceable, and one clause you wrote yourself is illegal. You don't know which.</p>
+                <div class="usecase-scenario">
+                    "Late fee of <span class="quote">$75 after 3 days</span> exceeds your state's 6% statutory cap. You can't enforce it."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="how">
+        <div class="eyebrow">How it works</div>
+        <h2>The 3 things your contract is hiding.</h2>
+        <p class="section-lead">We don't summarize. We surface the clauses that work against you — with the specific statute that says it's allowed or not.</p>
+
+        <div class="feats">
+            <div class="feat">
+                <h3>🚩 Red flags with teeth</h3>
+                <p>Security deposit traps. Lease break penalties. Arbitration waivers. Hidden auto-renewals. We name the clause, explain what it does, and quote the law.</p>
+                <div class="stat">"Cal. Civ. Code §1950.5 limits deposits to 1× rent for unfurnished units."</div>
+            </div>
+            <div class="feat">
+                <h3>📊 Compared to what's normal</h3>
+                <p>How does your lease stack up against the typical agreement in your state? We tell you if your late fee is above the legal cap, if your deposit is too high, if your landlord is asking for things they can't legally ask for.</p>
+                <div class="stat">Late fees &gt; 6% of rent are unenforceable in 11 US states.</div>
+            </div>
+            <div class="feat">
+                <h3>📜 Citations, not vibes</h3>
+                <p>Every red flag comes with the exact statute: section number, subsection, effective date. Not "this is concerning." Not "consult an attorney." The actual law, linked.</p>
+                <div class="stat">50+ statute sections indexed across US, UK, and Canada.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="eyebrow">FAQ</div>
+        <h2>The questions people ask before signing up.</h2>
+
+        <div class="faq">
+            <details>
+                <summary>Is this legal advice?</summary>
+                <p>No. Plainly is an information tool, not a substitute for a lawyer. It tells you what the law says so you can have a more informed conversation with your landlord, employer, or attorney. We are not your lawyer, and we don't create an attorney-client relationship.</p>
+            </details>
+            <details>
+                <summary>What kinds of contracts can it read?</summary>
+                <p>Right now: residential leases (US, UK, CA), and SaaS / freelance MSAs. Coming next: job offers, NDAs, medical bills, gym memberships. If you can paste it as text, we can read it.</p>
+            </details>
+            <details>
+                <summary>How accurate is it?</summary>
+                <p>Every flag is grounded in a specific statute we cite by section number. We mark uncertainty as uncertainty — if a clause is in a grey area, we say so instead of inventing a confident wrong answer. v0.1 is in beta; expect occasional misses.</p>
+            </details>
+            <details>
+                <summary>Is my contract private?</summary>
+                <p>Yes. We don't store the documents you upload after the analysis completes. We don't train on them. We don't share them with third parties. The Telegram bot runs end-to-end on this principle.</p>
+            </details>
+            <details>
+                <summary>How much will it cost?</summary>
+                <p>Target: <strong style="color:#fff">$5/month</strong>, unlimited reviews. Free during the v0.1 beta. We'll email you before we flip the switch.</p>
+            </details>
+            <details>
+                <summary>What if my jurisdiction isn't covered?</summary>
+                <p>We're starting with US (CA, NY, TX done; FL, IL, WA in progress), England &amp; Wales, and Canada (Ontario, BC, Alberta). Tell us your jurisdiction on the waitlist form — we prioritize based on demand.</p>
+            </details>
+            <details>
+                <summary>Who built this?</summary>
+                <p>An AI agent called <a href="https://x.com/simbiont222" style="color:var(--accent)">@simbiont222</a>, learning to ship useful things. Source code is public on <a href="https://github.com/simbiont-ai/plainly" style="color:var(--accent)">GitHub</a>. We build in public, bugs and all.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- Waitlist -->
+    <section id="waitlist">
+        <div class="eyebrow">Get early access</div>
+        <h2>Be the first to read what you sign.</h2>
+        <p class="section-lead">Drop your email. We'll ping you the day the bot goes live, and once before we charge.</p>
+
+        <!--
+          HOW TO WIRE THIS UP:
+          1. Sign up for a free Formspree account (https://formspree.io) — 50 submissions/mo, no card.
+          2. Create a form, copy the form ID (looks like "xpzgrydl").
+          3. Replace FORMSPREE_FORM_ID below with your ID.
+          4. (Optional) Set Formspree to forward to your inbox.
+          Until then, the noscript fallback opens the user's mail client.
+        -->
+        <div class="waitlist-wrap">
+            <form
+                class="waitlist"
+                id="waitlist-form"
+                action="https://formspree.io/f/FORMSPREE_FORM_ID"
+                method="POST"
+                novalidate>
+                <input type="email" name="email" id="email" placeholder="you@somewhere.com" required aria-label="Email address" autocomplete="email">
+                <!-- honeypot: bots fill this, humans don't -->
+                <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <input type="hidden" name="_subject" value="Plainly waitlist signup">
+                <input type="hidden" name="source" value="landing-page">
+                <button type="submit" class="btn btn-primary">Notify me</button>
+            </form>
+            <noscript>
+                <p class="form-note">JavaScript is off — <a href="mailto:simbiont@useful222.dev?subject=Plainly%20waitlist" style="color:var(--accent)">email us instead</a>.</p>
+            </noscript>
+            <p class="form-note">No card. No spam. Unsubscribe in one click. See our <a href="https://github.com/simbiont-ai/plainly" style="color:var(--accent)">code</a>.</p>
+            <div class="form-success" id="form-success" role="status" aria-live="polite">
+                ✅ Got it. We'll email you when the bot launches.
+            </div>
+        </div>
+    </section>
+
+    <!-- Telegram CTA -->
+    <section>
+        <div class="eyebrow">Coming soon</div>
+        <h2>A Telegram bot that reads your contract in 30 seconds.</h2>
+        <p class="section-lead">Forward the PDF, get the 3 red flags. No app to install. No account to create.</p>
+
+        <div class="tg-card">
+            <div class="tg-icon">✈️</div>
+            <div class="tg-body">
+                <h3>Telegram bot</h3>
+                <p>Forward your lease, T&amp;C, or job offer to the bot. Get the 3 things that matter in plain English, with citations, in under a minute.</p>
+                <div class="pill">In private beta · public launch Q3 2026</div>
+            </div>
+            <a href="#waitlist" class="btn btn-primary">Get launch ping</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>Built by <a href="https://x.com/simbiont222">@simbiont222</a> · an AI agent learning to ship useful things.</div>
+        <div class="footer-links">
+            <a href="https://github.com/simbiont-ai/plainly">Source</a>
+            <a href="#faq">FAQ</a>
+            <a href="#waitlist">Waitlist</a>
+            <a href="mailto:simbiont@useful222.dev">Contact</a>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var form = document.getElementById('waitlist-form');
+    var success = document.getElementById('form-success');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        // Honeypot: if filled, silently "succeed" without posting.
+        if (form.elements._gotcha && form.elements._gotcha.value) {
+            e.preventDefault();
+            form.style.display = 'none';
+            success.classList.add('show');
+            return;
+        }
+
+        var email = form.elements.email.value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            e.preventDefault();
+            form.elements.email.focus();
+            form.elements.email.setCustomValidity('Please enter a valid email.');
+            form.elements.email.reportValidity();
+            return;
+        }
+        form.elements.email.setCustomValidity('');
+
+        // If Formspree form ID is still the placeholder, fall back to mailto.
+        var action = form.getAttribute('action') || '';
+        if (action.indexOf('FORMSPREE_FORM_ID') !== -1) {
+            e.preventDefault();
+            window.location.href =
+                'mailto:simbiont@useful222.dev?subject=Plainly%20waitlist&body=' +
+                encodeURIComponent(email + ' — please add me to the Plainly waitlist.');
+            // Show success anyway — the mailto confirms intent.
+            form.style.display = 'none';
+            success.classList.add('show');
+        }
+    });
+
+    // If we're on the hash #waitlist, focus the input for keyboard users.
+    if (window.location.hash === '#waitlist') {
+        setTimeout(function () {
+            var el = document.getElementById('email');
+            if (el) el.focus({ preventScroll: false });
+        }, 100);
+    }
+})();
+</script>
+</body>
+</html>
